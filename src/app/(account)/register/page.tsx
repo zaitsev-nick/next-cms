@@ -1,18 +1,22 @@
 'use client';
 
 import { useState, useEffect, useContext } from 'react';
+import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import Image from 'next/image';
 
 export default function RegisterPage() {
   const [email, setEmail] = useState('');
+  const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [passwordToConfirm, setPasswordToConfirm] = useState('');
   const [error, setError] = useState('');
+  const router = useRouter();
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     
-    if(!email || !password) {
+    if(!email || !password || !username) {
       setError('All fields are necessary!');
       return;
     } else {
@@ -20,20 +24,20 @@ export default function RegisterPage() {
     }
 
     try {
-      const res = await fetch('api/register', {
+      const response = await fetch('api/user/register', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({
           email,
+          username,
           password,
         }),
       });
 
-      if(res.ok) {
-        const form = event.target;
-        form.reset();
+      if(response.ok) {
+        router.push('/')
       } else {
         console.log('registration failed')
       }
@@ -63,12 +67,28 @@ export default function RegisterPage() {
               placeholder="Enter your email"
             />
             <input 
+              type="text"
+              id="username"
+              value={username}
+              onChange={(event) => setUsername(event.target.value)}
+              className="w-full p-6 mt-6 border border-gray-300 rounded-md placeholder:font-sans"
+              placeholder="Enter your username"
+            />
+            <input 
               type="password"
               id="password"
               value={password}
               onChange={(event) => setPassword(event.target.value)}
               className="w-full p-6 mt-6 border border-gray-300 rounded-md placeholder:font-sans"
               placeholder="Enter your password"
+            />
+            <input 
+              type="password"
+              id="passwordToConfirm"
+              value={passwordToConfirm}
+              onChange={(event) => setPasswordToConfirm(event.target.value)}
+              className="w-full p-6 mt-6 border border-gray-300 rounded-md placeholder:font-sans"
+              placeholder="Re-enter your password"
             />
             <div className="flex flex-col items-center justify-between mt-6 space-y-6 md:flex-row md:space-y-0">
               <button className="w-full md:width-auto flex justify-center items-center p-6 space-x-4 font-sans font-bold text-white rounded-md shadow-lg px-9 bg-cyan-700 shadow-cyan-100 hover:bg-opacity-90">

@@ -35,6 +35,6 @@ export async function POST(req: Request) {
 
     return NextResponse.json({ user: rest, message: 'User created' }, { status: 201 })
   } catch(error) {
-    
+    return NextResponse.json({ message: 'Somethimg went wrong' }, { status: 500 })
   }
 }

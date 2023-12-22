@@ -3,15 +3,28 @@
 import { useState, useEffect, useContext } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import { signIn } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
 
 
 export default function LoginPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const router = useRouter();
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    console.log({ email, password })
+    const signInData = await signIn('credentials', {
+      email,
+      password,
+      redirect: false,
+    });
+    
+    if(signInData?.error) {
+      console.log(signInData.error);
+    } else {
+      router.push('dashboard/profile')
+    }
   }
 
   return (
