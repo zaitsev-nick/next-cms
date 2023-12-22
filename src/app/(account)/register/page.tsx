@@ -1,3 +1,90 @@
+'use client';
+
+import { useState, useEffect, useContext } from 'react';
+import Link from 'next/link';
+import Image from 'next/image';
+
 export default function RegisterPage() {
-  return <div>Register Form</div>
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
+
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    
+    if(!email || !password) {
+      setError('All fields are necessary!');
+      return;
+    } else {
+      setError('');
+    }
+
+    try {
+      const res = await fetch('api/register', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          email,
+          password,
+        }),
+      });
+
+      if(res.ok) {
+        const form = event.target;
+        form.reset();
+      } else {
+        console.log('registration failed')
+      }
+    } catch(error) {
+      console.log(error)
+    }
+  }
+
+
+  return (
+  <>
+    <div className="flex items-center justify-center min-h-screen bg-rose-50">
+      <div className="relative flex flex-col m-6 space-y-10 bg-white shadow-2xl rounded-2xl md:flex-row md:space-y-0 md:m-0">
+        {/* Leaft Side */}
+        <form onSubmit={handleSubmit}>
+          <div className="p-6 md:p-20">
+            <h2 className="font-mono mb-5 text-4xl font-bold">Register</h2>
+            <p className="max-w-sm mb-12 font-sans font-light text-gray-600">
+              Register a new account.
+            </p>
+            <input 
+              type="email"
+              id="email"
+              value={email}
+              onChange={(event) => setEmail(event.target.value)}
+              className="w-full p-6 border border-gray-300 rounded-md placeholder:font-sans"
+              placeholder="Enter your email"
+            />
+            <input 
+              type="password"
+              id="password"
+              value={password}
+              onChange={(event) => setPassword(event.target.value)}
+              className="w-full p-6 mt-6 border border-gray-300 rounded-md placeholder:font-sans"
+              placeholder="Enter your password"
+            />
+            <div className="flex flex-col items-center justify-between mt-6 space-y-6 md:flex-row md:space-y-0">
+              <button className="w-full md:width-auto flex justify-center items-center p-6 space-x-4 font-sans font-bold text-white rounded-md shadow-lg px-9 bg-cyan-700 shadow-cyan-100 hover:bg-opacity-90">
+                <span>Register</span>
+              </button>
+            </div>
+            {error && (
+              <div className='bg-red-500 text-white mt-6 p-2 inline-flex'>{error}</div>
+            )}
+          </div>
+        </form>
+
+        {/* Right Side */}
+        <Image src='/bg-login.jpg' alt='' width={1000} height={1000} className="w-[430px] hidden md:block rounded-r-2xl" />
+      </div>
+    </div>
+  </>
+  )
 }

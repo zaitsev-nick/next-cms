@@ -47,6 +47,7 @@ export default function LoginPage() {
                   <span>Login</span>
                 </button>
               </div>
+              <div className='bg-red-500 text-white'>Error message</div>
             </div>
           </form>
 
