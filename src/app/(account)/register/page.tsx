@@ -37,12 +37,12 @@ export default function RegisterPage() {
       });
 
       if(response.ok) {
-        router.push('/')
+        router.push('/login')
       } else {
-        console.log('registration failed')
+        setError('Registration failed');
       }
     } catch(error) {
-      console.log(error)
+      setError(`${error}`);
     }
   }
 

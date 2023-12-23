@@ -10,6 +10,7 @@ import { useRouter } from 'next/navigation';
 export default function LoginPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
   const router = useRouter();
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -19,9 +20,11 @@ export default function LoginPage() {
       password,
       redirect: false,
     });
+
+    console.log(signInData)
     
     if(signInData?.error) {
-      console.log(signInData.error);
+      setError(`${signInData.error}`);
     } else {
       router.push('dashboard/profile')
     }
@@ -60,7 +63,9 @@ export default function LoginPage() {
                   <span>Login</span>
                 </button>
               </div>
-              <div className='bg-red-500 text-white'>Error message</div>
+              {error && (
+                <div className='bg-red-500 text-white mt-6 p-2 inline-flex'>{error}</div>
+              )}
             </div>
           </form>
 
