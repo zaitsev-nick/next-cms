@@ -1,17 +1,23 @@
 'use client';
 
 import { useState, useEffect, useContext } from 'react';
+import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import Image from 'next/image';
 
 export default function RegisterPage() {
+  const { data: session } = useSession();
   const [email, setEmail] = useState('');
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [passwordToConfirm, setPasswordToConfirm] = useState('');
   const [error, setError] = useState('');
   const router = useRouter();
+
+  if(session?.user) {
+    router.push('/dashboard/profile')
+  };
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
