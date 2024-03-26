@@ -7,7 +7,7 @@ import { useSession, signIn } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 
 
-export default function LoginPage() {
+export default function AuthLogin() {
   const { data: session } = useSession();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -37,47 +37,64 @@ export default function LoginPage() {
 
   return (
     <>
-      <div className="flex items-center justify-center min-h-screen bg-rose-50">
-        <div className="relative flex flex-col m-6 space-y-10 bg-white shadow-2xl rounded-2xl md:flex-row md:space-y-0 md:m-0">
-          {/* Leaft Side */}
-          <form onSubmit={handleSubmit}>
-            <div className="p-6 md:p-20">
-              <h2 className="font-mono mb-5 text-4xl font-bold">Login</h2>
-              <p className="max-w-sm mb-12 font-sans font-light text-gray-600">
-                Log in to your account.
-              </p>
-              <input 
-                type="email"
-                id="email"
-                value={email}
-                onChange={(event) => setEmail(event.target.value)}
-                className="w-full p-6 border border-gray-300 rounded-md placeholder:font-sans"
-                placeholder="Enter your email"
-              />
-              <input 
-                type="password"
-                id="password"
-                value={password}
-                onChange={(event) => setPassword(event.target.value)}
-                className="w-full p-6 mt-6 border border-gray-300 rounded-md placeholder:font-sans"
-                placeholder="Enter your password"
-              />
-              <div className="flex flex-col items-center justify-between mt-6 space-y-6 md:flex-row md:space-y-0">
-                <div className="font-thin text-cyan-700">Forgot password</div>
-                <button className="w-full md:width-auto flex justify-center items-center p-6 space-x-4 font-sans font-bold text-white rounded-md shadow-lg px-9 bg-cyan-700 shadow-cyan-100 hover:bg-opacity-90">
-                  <span>Login</span>
-                </button>
-              </div>
-              {error && (
-                <div className='bg-red-500 text-white mt-6 p-2 inline-flex'>{error}</div>
-              )}
-            </div>
-          </form>
+      <section className="md:h-screen py-36 flex items-center  bg-no-repeat bg-center bg-cover" style={{backgroundImage:"url('/images/login-bg.jpeg')"}}>
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black"></div>
+        <div className="container relative">
+          <div className="flex justify-center">
+            <div className="max-w-[400px] w-full m-auto p-6 bg-white dark:bg-slate-900 shadow-md dark:shadow-gray-800 rounded-md">
+              <Link href="/"><Image src="/images/logo-icon-64.png" height={64} width={72} className="mx-auto" alt="" /></Link>
+              <h5 className="my-6 text-xl font-semibold">Login</h5>
+              <form onSubmit={handleSubmit} className="text-start">
+                <div className="grid grid-cols-1">
+                  <div className="mb-4">
+                    <label className="font-semibold" htmlFor="email">Email Address:</label>
+                    <input 
+                      type="email"
+                      id="email"
+                      value={email}
+                      onChange={(event) => setEmail(event.target.value)}
+                      className="form-input mt-3 w-full py-2 px-3 h-10 bg-transparent dark:bg-slate-900 dark:text-slate-200 rounded outline-none border border-gray-200 focus:border-indigo-600 dark:border-gray-800 dark:focus:border-indigo-600 focus:ring-0"
+                      placeholder="Enter your email"
+                    />
+                  </div>
 
-          {/* Right Side */}
-          <Image src='/bg-login.jpg' alt='' width={1000} height={1000} className="w-[430px] hidden md:block rounded-r-2xl" />
+                  <div className="mb-4">
+                    <label className="font-semibold" htmlFor="password">Password:</label>
+                    <input 
+                      type="password"
+                      id="password"
+                      value={password}
+                      onChange={(event) => setPassword(event.target.value)}
+                      className="form-input mt-3 w-full py-2 px-3 h-10 bg-transparent dark:bg-slate-900 dark:text-slate-200 rounded outline-none border border-gray-200 focus:border-indigo-600 dark:border-gray-800 dark:focus:border-indigo-600 focus:ring-0"
+                      placeholder="Enter your password"
+                    />
+                  </div>
+
+                  <div className="flex justify-between mb-4">
+                    <div className="flex items-center mb-0">
+                        <input className="form-checkbox rounded border-gray-200 dark:border-gray-800 text-indigo-600 focus:border-indigo-300 focus:ring focus:ring-offset-0 focus:ring-indigo-200 focus:ring-opacity-50 me-2" type="checkbox" value="" id="RememberMe" />
+                        <label className="form-checkbox-label text-slate-400" htmlFor="RememberMe">Remember me</label>
+                    </div>
+                    <p className="text-slate-400 mb-0"><Link href="/auth-re-password" className="text-slate-400">Forgot password ?</Link></p>
+                  </div>
+
+                  <div className="mb-4">
+                    <input type="submit" className="py-2 px-5 inline-block font-semibold tracking-wide border align-middle duration-500 text-base text-center bg-indigo-600 hover:bg-indigo-700 border-indigo-600 hover:border-indigo-700 text-white rounded-md w-full" value="Login / Sign in" />
+                  </div>
+
+                  <div className="text-center">
+                    <span className="text-slate-400 me-2">Do not have an account ?</span> <Link href="/auth-signup" className="text-black dark:text-white font-bold inline-block">Sign Up</Link>
+                  </div>
+
+                  {error && (
+                    <div className='bg-red-500 text-white mt-6 p-2 inline-flex'>{error}</div>
+                  )}
+                </div>
+              </form>
+            </div>
+          </div>
         </div>
-      </div>
+      </section>
     </>
   )
 }

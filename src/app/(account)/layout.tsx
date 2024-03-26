@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
-import './globals.scss';
+
 import AuthProvider from '@/providers/AuthProvider';
 
 import LayoutMain from '@/components/layout/LayoutMain';
@@ -21,9 +21,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <AuthProvider>
-          <LayoutMain>
             {children}
-          </LayoutMain>
         </AuthProvider>
       </body>
     </html>
