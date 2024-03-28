@@ -31,7 +31,7 @@ export default function AuthLogin() {
     if(signInData?.error) {
       setError(`${signInData.error}`);
     } else {
-      router.push('dashboard/profile')
+      router.push('/dashboard/profile')
     }
   }
 
@@ -83,7 +83,7 @@ export default function AuthLogin() {
                   </div>
 
                   <div className="text-center">
-                    <span className="text-slate-400 me-2">Do not have an account ?</span> <Link href="/auth-signup" className="text-black dark:text-white font-bold inline-block">Sign Up</Link>
+                    <span className="text-slate-400 me-2">Do not have an account ?</span> <Link href="/register" className="text-black dark:text-white font-bold inline-block">Sign Up</Link>
                   </div>
 
                   {error && (

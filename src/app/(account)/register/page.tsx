@@ -11,7 +11,6 @@ export default function RegisterPage() {
   const [email, setEmail] = useState('');
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [passwordToConfirm, setPasswordToConfirm] = useState('');
   const [error, setError] = useState('');
   const router = useRouter();
 
@@ -55,62 +54,71 @@ export default function RegisterPage() {
 
   return (
   <>
-    <div className="flex items-center justify-center min-h-screen bg-rose-50">
-      <div className="relative flex flex-col m-6 space-y-10 bg-white shadow-2xl rounded-2xl md:flex-row md:space-y-0 md:m-0">
-        {/* Leaft Side */}
-        <form onSubmit={handleSubmit}>
-          <div className="p-6 md:p-20">
-            <h2 className="font-mono mb-5 text-4xl font-bold">Register</h2>
-            <p className="max-w-sm mb-12 font-sans font-light text-gray-600">
-              Register a new account.
-            </p>
-            <input 
-              type="email"
-              id="email"
-              value={email}
-              onChange={(event) => setEmail(event.target.value)}
-              className="w-full p-6 border border-gray-300 rounded-md placeholder:font-sans"
-              placeholder="Enter your email"
-            />
-            <input 
-              type="text"
-              id="username"
-              value={username}
-              onChange={(event) => setUsername(event.target.value)}
-              className="w-full p-6 mt-6 border border-gray-300 rounded-md placeholder:font-sans"
-              placeholder="Enter your username"
-            />
-            <input 
-              type="password"
-              id="password"
-              value={password}
-              onChange={(event) => setPassword(event.target.value)}
-              className="w-full p-6 mt-6 border border-gray-300 rounded-md placeholder:font-sans"
-              placeholder="Enter your password"
-            />
-            <input 
-              type="password"
-              id="passwordToConfirm"
-              value={passwordToConfirm}
-              onChange={(event) => setPasswordToConfirm(event.target.value)}
-              className="w-full p-6 mt-6 border border-gray-300 rounded-md placeholder:font-sans"
-              placeholder="Re-enter your password"
-            />
-            <div className="flex flex-col items-center justify-between mt-6 space-y-6 md:flex-row md:space-y-0">
-              <button className="w-full md:width-auto flex justify-center items-center p-6 space-x-4 font-sans font-bold text-white rounded-md shadow-lg px-9 bg-cyan-700 shadow-cyan-100 hover:bg-opacity-90">
-                <span>Register</span>
-              </button>
-            </div>
-            {error && (
-              <div className='bg-red-500 text-white mt-6 p-2 inline-flex'>{error}</div>
-            )}
-          </div>
-        </form>
+    <section className="md:h-screen py-36 flex items-center  bg-no-repeat bg-center bg-cover" style={{backgroundImage:"url('/login-bg.jpeg')"}}>
+      <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black"></div>
+      <div className="container relative">
+        <div className="flex justify-center">
+          <div className="max-w-[400px] w-full m-auto p-6 bg-white dark:bg-slate-900 shadow-md dark:shadow-gray-800 rounded-md">
+            <Link href="/"><Image src="/images/logo-icon-64.png" height={64} width={72} className="mx-auto" alt="" /></Link>
+            <h5 className="my-6 text-xl font-semibold">Signup / Register</h5>
+            <form action="auth-signup-success" className="text-start">
+              <div className="grid grid-cols-1">
+                <div className="mb-4">
+                  <label className="font-semibold" htmlFor="username">Your Name:</label>  
+                  <input 
+                    type="text"
+                    id="username"
+                    value={username}
+                    onChange={(event) => setUsername(event.target.value)}
+                    className="form-input mt-3 w-full py-2 px-3 h-10 bg-transparent dark:bg-slate-900 dark:text-slate-200 rounded outline-none border border-gray-200 focus:border-indigo-600 dark:border-gray-800 dark:focus:border-indigo-600 focus:ring-0"
+                    placeholder="Enter your name"
+                  />
+                </div>
 
-        {/* Right Side */}
-        <Image src='/bg-login.jpg' alt='' width={1000} height={1000} className="w-[430px] hidden md:block rounded-r-2xl" />
+                <div className="mb-4">
+                  <label className="font-semibold" htmlFor="LoginEmail">Email Address:</label>
+                  <input
+                    type="email"
+                    id="email"
+                    value={email}
+                    onChange={(event) => setEmail(event.target.value)}
+                    className="form-input mt-3 w-full py-2 px-3 h-10 bg-transparent dark:bg-slate-900 dark:text-slate-200 rounded outline-none border border-gray-200 focus:border-indigo-600 dark:border-gray-800 dark:focus:border-indigo-600 focus:ring-0"
+                    placeholder="Enter your email"
+                  />
+                </div>
+
+                <div className="mb-4">
+                  <label className="font-semibold" htmlFor="password">Password:</label>
+                  <input 
+                    type="password"
+                    id="password"
+                    value={password}
+                    onChange={(event) => setPassword(event.target.value)}
+                    className="form-input mt-3 w-full py-2 px-3 h-10 bg-transparent dark:bg-slate-900 dark:text-slate-200 rounded outline-none border border-gray-200 focus:border-indigo-600 dark:border-gray-800 dark:focus:border-indigo-600 focus:ring-0" 
+                    placeholder="Enter your password"
+                  />
+                </div>
+
+                <div className="mb-4">
+                  <div className="flex items-center w-full mb-0">
+                    <input className="form-checkbox rounded border-gray-200 dark:border-gray-800 text-indigo-600 focus:border-indigo-300 focus:ring focus:ring-offset-0 focus:ring-indigo-200 focus:ring-opacity-50 me-2" type="checkbox" value="" id="AcceptT&C" />
+                    <label className="form-check-label text-slate-400" htmlFor="AcceptT&C">I Accept <Link href="#" className="text-indigo-600">Terms And Condition</Link></label>
+                  </div>
+                </div>
+
+                <div className="mb-4">
+                  <input type="submit" className="py-2 px-5 inline-block font-semibold tracking-wide border align-middle duration-500 text-base text-center bg-indigo-600 hover:bg-indigo-700 border-indigo-600 hover:border-indigo-700 text-white rounded-md w-full" value="Register" />
+                </div>
+
+                <div className="text-center">
+                  <span className="text-slate-400 me-2">Already have an account ? </span> <Link href="/login" className="text-black dark:text-white font-bold inline-block">Sign in</Link>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
       </div>
-    </div>
+    </section>
   </>
   )
 }
