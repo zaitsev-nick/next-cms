@@ -42,8 +42,8 @@ export default function AuthLogin() {
         <div className="container relative">
           <div className="flex justify-center">
             <div className="max-w-[400px] w-full m-auto p-6 bg-white dark:bg-slate-900 shadow-md dark:shadow-gray-800 rounded-md">
-              <Link href="/"><Image src="/images/logo-icon-64.png" height={64} width={72} className="mx-auto" alt="" /></Link>
-              <h5 className="my-6 text-xl font-semibold">Login</h5>
+              <Link href="/"><Image src="/images/logo-dark.svg" height={64} width={72} className="mx-auto" alt="" /></Link>
+              <h5 className="my-6 text-xl font-semibold">Login / Sign In</h5>
               <form onSubmit={handleSubmit} className="text-start">
                 <div className="grid grid-cols-1">
                   <div className="mb-4">
@@ -75,7 +75,7 @@ export default function AuthLogin() {
                         <input className="form-checkbox rounded border-gray-200 dark:border-gray-800 text-indigo-600 focus:border-indigo-300 focus:ring focus:ring-offset-0 focus:ring-indigo-200 focus:ring-opacity-50 me-2" type="checkbox" value="" id="RememberMe" />
                         <label className="form-checkbox-label text-slate-400" htmlFor="RememberMe">Remember me</label>
                     </div>
-                    <p className="text-slate-400 mb-0"><Link href="/auth-re-password" className="text-slate-400">Forgot password ?</Link></p>
+                    <p className="text-slate-400 mb-0"><Link href="/reset-password" className="text-slate-400">Forgot password ?</Link></p>
                   </div>
 
                   <div className="mb-4">

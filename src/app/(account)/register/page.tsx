@@ -59,9 +59,9 @@ export default function RegisterPage() {
       <div className="container relative">
         <div className="flex justify-center">
           <div className="max-w-[400px] w-full m-auto p-6 bg-white dark:bg-slate-900 shadow-md dark:shadow-gray-800 rounded-md">
-            <Link href="/"><Image src="/images/logo-icon-64.png" height={64} width={72} className="mx-auto" alt="" /></Link>
-            <h5 className="my-6 text-xl font-semibold">Signup / Register</h5>
-            <form action="auth-signup-success" className="text-start">
+            <Link href="/"><Image src="/images/logo-light.svg" height={64} width={72} className="mx-auto" alt="" /></Link>
+            <h5 className="my-6 text-xl font-semibold">Register / Sign Up </h5>
+            <form onSubmit={handleSubmit} className="text-start">
               <div className="grid grid-cols-1">
                 <div className="mb-4">
                   <label className="font-semibold" htmlFor="username">Your Name:</label>  
