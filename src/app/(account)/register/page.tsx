@@ -54,12 +54,12 @@ export default function RegisterPage() {
 
   return (
   <>
-    <section className="md:h-screen py-36 flex items-center  bg-no-repeat bg-center bg-cover" style={{backgroundImage:"url('/login-bg.jpeg')"}}>
+    <section className="md:h-screen py-36 flex items-center  bg-no-repeat bg-center bg-cover" style={{backgroundImage:"url('/images/login-bg.jpeg')"}}>
       <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black"></div>
       <div className="container relative">
         <div className="flex justify-center">
           <div className="max-w-[400px] w-full m-auto p-6 bg-white dark:bg-slate-900 shadow-md dark:shadow-gray-800 rounded-md">
-            <Link href="/"><Image src="/images/logo-light.svg" height={64} width={72} className="mx-auto" alt="" /></Link>
+            <Link href="/"><Image src="/images/logo-dark.svg" height={64} width={72} className="mx-auto" alt="" /></Link>
             <h5 className="my-6 text-xl font-semibold">Register / Sign Up </h5>
             <form onSubmit={handleSubmit} className="text-start">
               <div className="grid grid-cols-1">

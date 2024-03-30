@@ -8,11 +8,11 @@ import { useRouter } from 'next/navigation';
 
 
 export default function AuthLogin() {
-  const { data: session } = useSession();
+  const router = useRouter();
+  const { data: session } = useSession()
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
-  const router = useRouter();
 
   if(session?.user) {
     router.push('/dashboard/profile')
@@ -20,18 +20,16 @@ export default function AuthLogin() {
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const signInData = await signIn('credentials', {
-      email,
-      password,
-      redirect: false,
-    });
-
-    console.log(signInData)
-    
-    if(signInData?.error) {
-      setError(`${signInData.error}`);
-    } else {
-      router.push('/dashboard/profile')
+    try {
+      const signInData = await signIn('credentials', {
+        email,
+        password,
+        redirect: false,
+      });
+    } catch(error) {
+      if(error) {
+        setError(`${error}`);
+      }
     }
   }
 

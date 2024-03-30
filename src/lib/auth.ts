@@ -1,4 +1,5 @@
 import type { NextAuthOptions } from 'next-auth';
+import NextAuth from 'next-auth';
 //import GitHubProvider from 'next-auth/providers/github';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import EmailProvider from 'next-auth/providers/email';
@@ -79,7 +80,9 @@ export const authOptions: NextAuthOptions = {
       }
     }),
   ],
+  //basePath: '/api/auth',
   callbacks: {
+    //async authorized({ token }) {!!token},
     async jwt({ token, trigger, session }) {
       if (trigger === "update") token.username = session.user.name
       return token
@@ -94,3 +97,6 @@ export const authOptions: NextAuthOptions = {
     },
   }
 }
+
+
+export const { handlers, auth, signIn, signOut } = NextAuth(authOptions);
