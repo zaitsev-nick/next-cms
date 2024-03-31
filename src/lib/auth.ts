@@ -39,6 +39,7 @@ export const authOptions: NextAuthOptions = {
           placeholder: 'your password',
         },
       },
+      // @ts-ignore:next-line
       async authorize(credentials) {
         if(!credentials?.email || !credentials?.password) {
           return null;
@@ -73,7 +74,7 @@ export const authOptions: NextAuthOptions = {
         url,
         provider: { server, from },
       }) {
-        sendEmail()
+        //sendEmail()
       },
       async generateVerificationToken() {
         return "ABC123"
