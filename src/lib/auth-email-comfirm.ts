@@ -10,7 +10,7 @@ export async function sendEmail(params: any) {
     from: provider.from,
     subject: `Sign in to ${host}`,
     text: text({ url, host }),
-    html: html({ url, host }),
+    html: html({ url, host, theme }),
   })
   const failed = result.rejected.concat(result.pending).filter(Boolean)
   if (failed.length) {
@@ -26,22 +26,28 @@ export async function sendEmail(params: any) {
  *
  * @note We don't add the email address to avoid needing to escape it, if you do, remember to sanitize it!
  */
-function html(params: { url: string, host: string }) {
-  const { url, host } = params
+function html(params: { url: string, host: string, theme: Theme }) {
+  const { url, host, theme } = params
 
   const escapedHost = host.replace(/\./g, "&#8203;.")
 
+  const brandColor = theme.brandColor || "#346df1"
   const color = {
+    background: "#f9f9f9",
     text: "#444",
+    mainBackground: "#fff",
+    buttonBackground: brandColor,
+    buttonBorder: brandColor,
+    buttonText: theme.buttonText || "#fff",
   }
 
   return `
-<body style="background:f9f9f9;">
+<body style="background: ${color.background};">
   <table width="100%" border="0" cellspacing="20" cellpadding="0"
-    style="background: f9f9f9; max-width: 600px; margin: auto; border-radius: 10px;">
+    style="background: ${color.mainBackground}; max-width: 600px; margin: auto; border-radius: 10px;">
     <tr>
       <td align="center"
-        style="padding: 10px 0px; font-size: 22px; font-family: Helvetica, Arial, sans-serif; color:f9f9f9;">
+        style="padding: 10px 0px; font-size: 22px; font-family: Helvetica, Arial, sans-serif; color: ${color.text};">
         Sign in to <strong>${escapedHost}</strong>
       </td>
     </tr>
@@ -49,9 +55,9 @@ function html(params: { url: string, host: string }) {
       <td align="center" style="padding: 20px 0;">
         <table border="0" cellspacing="0" cellpadding="0">
           <tr>
-            <td align="center" style="border-radius: 5px;" bgcolor="f9f9f9"><a href="${url}"
+            <td align="center" style="border-radius: 5px;" bgcolor="${color.buttonBackground}"><a href="${url}"
                 target="_blank"
-                style="font-size: 18px; font-family: Helvetica, Arial, sans-serif; color: f9f9f9; text-decoration: none; border-radius: 5px; padding: 10px 20px; border: 1px solid f9f9f9; display: inline-block; font-weight: bold;">Sign
+                style="font-size: 18px; font-family: Helvetica, Arial, sans-serif; color: ${color.buttonText}; text-decoration: none; border-radius: 5px; padding: 10px 20px; border: 1px solid ${color.buttonBorder}; display: inline-block; font-weight: bold;">Sign
                 in</a></td>
           </tr>
         </table>
